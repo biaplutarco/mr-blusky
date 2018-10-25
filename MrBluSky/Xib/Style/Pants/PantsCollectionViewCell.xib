@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PantsCollectionViewCell" customModule="MrBluSky" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="180" height="230"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pants" translatesAutoresizingMaskIntoConstraints="NO" id="vQG-FZ-KDA">
+                        <rect key="frame" x="36" y="0.0" width="108" height="230"/>
+                    </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shorts" translatesAutoresizingMaskIntoConstraints="NO" id="iti-sb-na4">
+                        <rect key="frame" x="49.5" y="0.0" width="81" height="230"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="iti-sb-na4" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.45" id="4f9-hb-7Lg"/>
+                <constraint firstItem="vQG-FZ-KDA" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.6" id="5Vy-EX-R5L"/>
+                <constraint firstItem="vQG-FZ-KDA" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="HtG-NA-Hkd"/>
+                <constraint firstItem="vQG-FZ-KDA" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="Lkx-Wu-N5b"/>
+                <constraint firstItem="iti-sb-na4" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="aKE-fx-GVK"/>
+                <constraint firstItem="vQG-FZ-KDA" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="cz5-gw-nrV"/>
+                <constraint firstItem="iti-sb-na4" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="jYg-8z-Yn0"/>
+                <constraint firstItem="iti-sb-na4" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="yd4-lK-kTx"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="190" height="391"/>
+            <connections>
+                <outlet property="pantsView" destination="vQG-FZ-KDA" id="o1r-dV-IcE"/>
+                <outlet property="shortsView" destination="iti-sb-na4" id="ror-gM-brT"/>
+            </connections>
+            <point key="canvasLocation" x="249.59999999999999" y="305.84707646176912"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="pants" width="222" height="463"/>
+        <image name="shorts" width="136" height="402"/>
+    </resources>
+</document>
