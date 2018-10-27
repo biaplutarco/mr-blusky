@@ -12,7 +12,6 @@ import MapKit
 class ViewController: UIViewController {
     // MARK: Instances
     let dbManager = DBManager.sharedInstance
-    let weatherAPI = WeatherAPIManager.sharedInstance
     
     // MARK: CollectionView
     var showsDayCollection: Bool = false
@@ -81,6 +80,7 @@ class ViewController: UIViewController {
     // MARK: Life Circle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         isDayHidden(bool: true)
         
         if self.typeWeather ==  nil {
@@ -239,12 +239,82 @@ class ViewController: UIViewController {
             }
     }
     
-    func showDayCollectionData(response: Response) {
+    func showDayCollectionData(forecast: Forecast) {
         self.dayCollectionData.removeAll()
-        self.dayCollectionData = self.dayCollectionView.setCollectionData(response: response)
+        self.dayCollectionData = self.dayCollectionView.setCollectionData(forecast: forecast)
         self.showsDayCollection = true
     }
     
+    func getCurrentData(cityID: Int16) {
+        ClimaTempoAPIManager.sharedInstance.getCityCurrentWeather(id: cityID) { (currentWeather) in
+            let data = currentWeather?.data
+            self.setGradientViewAndIconWeather(data!.condition)
+            
+            let currentTemp = "\(data!.temperatureInt)°"
+            let cityName = currentWeather?.name
+            
+            UserDefaults.standard.removeObject(forKey: "group.com.biaplutarco.mrblusky")
+            
+            UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(currentTemp, forKey: "currentTemp")
+            UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(cityName, forKey: "cityName")
+            
+            DispatchQueue.main.async {
+                self.bigTempToday.text = "\(data!.temperatureInt)°"
+                self.humidity.text = "\(data!.humidityInt)%"
+                self.dayCollectionView.reloadData()
+            }
+        }
+    }
+    
+    func getForecastData(cityID: Int16, row: Int?, indexPath: IndexPath?) {
+        ClimaTempoAPIManager.sharedInstance.getCityForecast(id: cityID) { (forecast) in
+            DispatchQueue.main.async {
+                self.dayCollectionData.removeAll()
+                self.dayCollectionData = self.dayCollectionView.setCollectionData(forecast: forecast!)
+                self.showsDayCollection = true
+                self.dayCollectionView.reloadData()
+            }
+            
+            DispatchQueue.main.async {
+                self.isDayHidden(bool: false)
+                self.cityCollectionView.reloadData()
+                self.dayCollectionView.reloadData()
+                //TEM QUE FAZER A CELL FICAR SELETED
+                DispatchQueue.main.async {
+                    if row != nil {
+                        let myIndexPath = IndexPath(item: row!, section: 0)
+                        self.cityCollectionView.scrollToItem(at: myIndexPath, at: .centeredHorizontally, animated: true)
+                        self.cityCollectionView.cellForItem(at: myIndexPath)?.isSelected = true
+                        
+                        let tempHigh = self.dayCollectionData[row!].tempHigh
+                        let tempLow = self.dayCollectionData[row!].tempLow
+                        let text = forecast?.data[row!].textIcon.text.pt
+                        
+                        UserDefaults.standard.removeObject(forKey: "group.com.biaplutarco.mrblusky")
+                        
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(text, forKey: "text")
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(tempHigh, forKey: "tempHigh")
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(tempLow, forKey: "tempLow")
+                    }
+                    if indexPath != nil {
+                        self.cityCollectionView.scrollToItem(at: indexPath!, at: .centeredHorizontally, animated: true)
+                        self.cityCollectionView.cellForItem(at: indexPath!)?.isSelected = true
+                        
+                        let tempHigh = self.dayCollectionData[indexPath!.row].tempHigh
+                        let tempLow = self.dayCollectionData[indexPath!.row].tempLow
+                        let text = forecast?.data[indexPath!.row].textIcon.text.pt
+                        
+                        UserDefaults.standard.removeObject(forKey: "group.com.biaplutarco.mrblusky")
+                        
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(text, forKey: "text")
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(tempHigh, forKey: "tempHigh")
+                        UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.setValue(tempLow, forKey: "tempLow")
+                    }
+                    
+                }
+            }
+        }
+    }
     
 }
 

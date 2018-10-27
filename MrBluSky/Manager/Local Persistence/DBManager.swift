@@ -22,10 +22,9 @@ class DBManager {
     let context = (AppDelegate.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     // MARK: - Saving
-    func saveCity(latitude: Double, longitude: Double, name: String) {
+    func saveCity(name: String, id: Int16) {
         let city = City(context: persistentContainer.viewContext)
-        city.latitude = latitude
-        city.longitude = longitude
+        city.id = id
         city.name = name
         
         appDelegate.saveContext()
@@ -80,16 +79,16 @@ class DBManager {
         }
     }
     
-    func getCityCoordination(name: String) -> (Double, Double) {
+    func getCityID(name: String) -> (Int16) {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "City")
         do {
             let cities = try context.fetch(request) as! [City]
             let citiesFiltered = cities.filter { (city) -> Bool in
                 city.name == name
             }
-            let coordination = (latitude: citiesFiltered[0].latitude, longitude: citiesFiltered[0].longitude)
+            let cityID = citiesFiltered.first!.id
             
-            return coordination
+            return cityID
         } catch {
             fatalError()
         }

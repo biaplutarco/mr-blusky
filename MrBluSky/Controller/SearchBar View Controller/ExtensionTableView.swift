@@ -23,7 +23,7 @@ extension SearchBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.addNewCity(latitude: self.latitude, longitude: self.longitude, name: self.nameCity)
+        delegate?.addNewCity(name: cityName, id: cityID[indexPath.row])
         delegate?.didAddedNewCity(true)
         dismiss(animated: true, completion: nil)
     }

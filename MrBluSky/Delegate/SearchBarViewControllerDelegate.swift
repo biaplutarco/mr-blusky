@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchBarViewControllerDelegate {
-    func addNewCity(latitude: Double, longitude: Double, name: String)
+    func addNewCity(name: String, id: Int16)
     func didAddedNewCity(_ bool: Bool)
 }
 

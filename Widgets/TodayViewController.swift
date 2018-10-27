@@ -18,92 +18,102 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var currentlyTemp: UILabel!
     @IBOutlet weak var highLowTemp: UILabel!
     
-    let locationManager = CLLocationManager()
-    var currentlyLocation = CLLocation()
-    var widgetContent: WidgetContent?
-    
-    let weatherAPI = WeatherAPIManager.sharedInstance
-    let geocodingAPI = GeocodingAPIManager.sharedInstance
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         visualEffectView.effect = UIVibrancyEffect.widgetPrimary()
-        
-        self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-        
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self as CLLocationManagerDelegate
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        // Do any additional setup after loading the view from its nib.
-        }
-        
         
         setContentWidget()
     }
     
     func setContentWidget() {
-        weatherAPI.currentLatidude = currentlyLocation.coordinate.latitude
-        weatherAPI.currentLongitude = currentlyLocation.coordinate.longitude
-        
-        weatherAPI.getRequest { (response) in
-            self.summary.text = response.hourly.summary
-            self.currentlyTemp.text = "\(response.currently.temperatureCelsius)°"
-            
-            let days = response.daily.data
-            days.forEach({ (day) in
-                self.highLowTemp.text = "\(day.temperatureHighCelsius)°/\(day.temperatureLowCelsius)°"
-                
-                self.geocodingAPI.newLatitudeCity = self.currentlyLocation.coordinate.latitude
-                self.geocodingAPI.newLogitudeCity = self.currentlyLocation.coordinate.longitude
-                self.geocodingAPI.getRequest(completion: { (responseGeo) in
-                    let results = responseGeo.results
-                    
-                    results.forEach({ (result) in
-                        self.cityName.text = result.components.city!
-                        self.widgetContent = WidgetContent(summary: response.hourly.summary,
-                                                           currentlyTemp: "\(response.currently.temperatureCelsius)°",
-                            highLow: "\(day.temperatureHighCelsius)°/\(day.temperatureLowCelsius)°", cityName: result.components.city!)
-                    })
-                }) {
-                    print("error")
-                }
-            })
+        if let textFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "text") {
+            summary.text = textFromApp as? String
         }
+        
+        if let currentTempFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "currentTemp") {
+            currentlyTemp.text = currentTempFromApp as? String
+        }
+        
+        if let cityNameFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "cityName") {
+            cityName.text = cityNameFromApp as? String
+        }
+        
+        if let tempHighFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "tempHigh") {
+            highLowTemp.text = tempHighFromApp as? String
+        }
+        
+        if let tempLowFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "tempLow") {
+            let tempLow = tempLowFromApp as? String
+            highLowTemp.text?.append("/")
+            highLowTemp.text?.append(tempLow!)
+        }
+        
         
     }
         
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        if widgetContent != nil  {
-            setContentWidget()
-            completionHandler(.newData)
-        }else {
-            completionHandler(.failed)
+        if let cityNamefromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "cityName") {
+            if cityNamefromApp as? String != cityName.text {
+                cityName.text = cityNamefromApp as? String
+                completionHandler(NCUpdateResult.newData)
+            } else {
+                completionHandler(NCUpdateResult.noData)
+            }
+        } else {
+            cityName.text = "Abra o app e cheque a previsão do tempo hoje!"
+            completionHandler(NCUpdateResult.newData)
         }
         
-    }
+        
+        if let textFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "text") {
+            if textFromApp as? String != summary.text {
+                summary.text = textFromApp as? String
+                completionHandler(NCUpdateResult.newData)
+            } else {
+                completionHandler(NCUpdateResult.noData)
+            }
+        } else {
+            summary.text = ""
+            completionHandler(NCUpdateResult.newData)
+        }
+        
+        if let currentTempFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "currentTemp") {
+            if currentTempFromApp as? String != currentlyTemp.text {
+                currentlyTemp.text = currentTempFromApp as? String
+                completionHandler(NCUpdateResult.newData)
+            } else {
+                completionHandler(NCUpdateResult.noData)
+            }
+        } else {
+            currentlyTemp.text = ""
+            completionHandler(NCUpdateResult.newData)
+        }
+        
+        if let tempHighFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "tempHigh") {
+            if let tempLowFromApp = UserDefaults.init(suiteName: "group.com.biaplutarco.mrblusky")?.value(forKey: "tempLow") {
+                if tempHighFromApp as? String != highLowTemp.text {
+                    highLowTemp.text = tempHighFromApp as? String
+                    completionHandler(NCUpdateResult.newData)
+                } else {
+                    completionHandler(NCUpdateResult.noData)
+                }
+                
+                if let tempLow = tempLowFromApp as? String {
+                    highLowTemp.text?.append("/")
+                    highLowTemp.text?.append(tempLow)
+                    completionHandler(NCUpdateResult.newData)
+                } else {
+                    completionHandler(NCUpdateResult.noData)
+                }
+            }
+            
+        } else {
+            highLowTemp.text = ""
+            completionHandler(NCUpdateResult.newData)
+        }
     
-}
-
-
-extension TodayViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        currentlyLocation = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
-    
 }
 
-
-struct WidgetContent {
-    var summary: String
-    var currentlyTemp: String
-    var highLow: String
-    var cityName: String
-}
 
 

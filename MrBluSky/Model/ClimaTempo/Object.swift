@@ -9,6 +9,9 @@
 import Foundation
 
 struct Object: Codable{
-    var id: Int
+    var id: Int16
+    var name: String
+    var state: String
+    var country: String
     
 }

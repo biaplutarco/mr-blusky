@@ -26,6 +26,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
                 cell.weekDay.text = dayCollectionData[indexPath.row].nameDay.uppercased()
                 cell.tempHigh.text = dayCollectionData[indexPath.row].tempHigh
                 cell.tempLow.text = dayCollectionData[indexPath.row].tempLow
+
                 return cell
             } else {
                 return cell
@@ -44,31 +45,19 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
             if cityCollectionCanEditing == false {
                 isDayHidden(bool: true)
                 cityCollectionView.allowsMultipleSelection = false
+                
                 let index = IndexPath(row: cityCollectionData.count-1, section: 0)
                 if collectionView.cellForItem(at: index)?.isSelected == true {
                     collectionView.cellForItem(at: index)?.isSelected = false
                 }
-//                isBallonHidden(bool: false)
                 collectionView.cellForItem(at: indexPath)?.isSelected = true
                 isDayHidden(bool: false)
-//                isBallonHidden(bool: true)
-                let coordination = dbManager.getCityCoordination(name: cityCollectionData[indexPath.row])
-                weatherAPI.currentLatidude = coordination.0
-                weatherAPI.currentLongitude = coordination.1
                 
-                weatherAPI.getRequest { (response) in
-                    let currently = response.currently
-                    self.setDataOutlets(tempToday: "\(currently.temperatureCelsius)°",
-                                        humidity: "\(currently.humidityPercent)%",
-                                        precipProb: "\(currently.precipProbabilityPercent)%")
-                    self.setGradientViewAndIconWeather(currently.icon)
-                    self.showDayCollectionData(response: response)
-                    DispatchQueue.main.async {
-                        self.dayCollectionView.reloadData()
-                        self.isDayHidden(bool: false)
-//                        self.isBallonHidden(bool: true)
-                    }
-                }
+                let cityID = dbManager.getCityID(name: cityCollectionData[indexPath.row])
+                getCurrentData(cityID: cityID)
+                getForecastData(cityID: cityID, row: nil, indexPath: indexPath)
+                self.showsDayCollection = true
+                
             } else {
                 cityCollectionView.allowsMultipleSelection = true
                 cityCollectionView.cellForItem(at: indexPath)?.transform = CGAffineTransform.identity
