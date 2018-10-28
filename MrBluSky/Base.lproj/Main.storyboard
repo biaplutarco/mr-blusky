@@ -137,7 +137,7 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rony" translatesAutoresizingMaskIntoConstraints="NO" id="CO1-dg-Hhj">
-                                <rect key="frame" x="225" y="156" width="131.5" height="333.5"/>
+                                <rect key="frame" x="225" y="163" width="131.5" height="333.5"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="NSm-Zy-9hE" appends="YES" id="Wk7-si-yce"/>
@@ -164,7 +164,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpS-Vp-8If">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CpS-Vp-8If">
                                 <rect key="frame" x="71.5" y="190.5" width="168.5" height="100"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="96"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -180,13 +180,13 @@
                                     <action selector="deleteCity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i1G-q1-QSn"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZW-1X-VwS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VZW-1X-VwS">
                                 <rect key="frame" x="80.5" y="326.5" width="45" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBj-7u-uOY">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="API" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBj-7u-uOY">
                                 <rect key="frame" x="195" y="326.5" width="45" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -286,7 +286,7 @@
                             <constraint firstItem="C3f-dO-m9V" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="svE-dh-f8t"/>
                             <constraint firstItem="iDR-1E-CSi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="thK-fj-OMa"/>
                             <constraint firstItem="0TZ-T5-Skq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.125" id="xLk-sL-LXX"/>
-                            <constraint firstItem="CO1-dg-Hhj" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.94" id="xUq-qw-O3N"/>
+                            <constraint firstItem="CO1-dg-Hhj" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.96" id="xUq-qw-O3N"/>
                             <constraint firstItem="1Mn-If-BLR" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.03" id="xkp-yu-Die"/>
                             <constraint firstItem="R0y-bW-cMw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="y4y-3I-fyw"/>
                         </constraints>

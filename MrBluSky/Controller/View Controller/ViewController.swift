@@ -115,24 +115,8 @@ class ViewController: UIViewController {
         addButton.setTitle("", for: .normal)
     }
     
-//    func deleteAlert() {
-//        self.cityCollectionView.reloadData()
-//        let alert = UIAlertController(title: "Are you sure?", message: nil, preferredStyle: .alert)
-//        
-//        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-//            self.deleteCity(editButton: self.editButton, addButton: self.addAndCancelButton, deleteCityName: self.deleteCityName)
-//        }))
-//        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { action in
-//            self.cityCollectionView.reloadData()
-//            self.editingCity()
-//        }))
-//        
-//        self.present(alert, animated: true)
-//    }
-    
     func settingsDeleteCity() {
         isDayHidden(bool: true)
-//        isBallonHidden(bool: false)
         
         self.cityCollectionData = dbManager.getCityNames()
         deleteCityName.forEach { (city) in

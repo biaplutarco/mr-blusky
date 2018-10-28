@@ -29,23 +29,27 @@ extension SearchBarViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let activityIndicator = UIActivityIndicatorView(style: .white)
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = tableView.bounds
+        
+        activityIndicator.startAnimating()
+        
         Timer.scheduledTimer(withTimeInterval: TimeInterval(exactly: 1)!, repeats: false) { (timer) in
+            activityIndicator.removeFromSuperview()
             ClimaTempoAPIManager.sharedInstance.getCityIDRequestBy(name: searchText, completion: { (responseObject) in
                 if let cities = responseObject {
-                    print(cities)
                     self.tableViewDataFiltered = []
                     cities.forEach({ (city) in
                         let citySearch = "\(city.name), \(city.state), \(city.country)"
                         self.tableViewDataFiltered.append(citySearch)
                         self.cityID.append(city.id)
                         self.cityName = city.name
-        
+                        
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }
-                        
                     })
-                    print(self.tableViewDataFiltered)
                 }
             })
         }

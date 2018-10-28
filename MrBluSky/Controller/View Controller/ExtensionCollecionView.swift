@@ -43,6 +43,8 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView.tag == 0 {
             if cityCollectionCanEditing == false {
+                let activityIndicator = UIActivityIndicatorView(style: .white)
+                
                 isDayHidden(bool: true)
                 cityCollectionView.allowsMultipleSelection = false
                 
@@ -56,8 +58,6 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
                 let cityID = dbManager.getCityID(name: cityCollectionData[indexPath.row])
                 getCurrentData(cityID: cityID)
                 getForecastData(cityID: cityID, row: nil, indexPath: indexPath)
-                self.showsDayCollection = true
-                
             } else {
                 cityCollectionView.allowsMultipleSelection = true
                 cityCollectionView.cellForItem(at: indexPath)?.transform = CGAffineTransform.identity
