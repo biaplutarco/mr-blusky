@@ -679,6 +679,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="head" translatesAutoresizingMaskIntoConstraints="NO" id="BIs-dl-pTR">
                                 <rect key="frame" x="161.5" y="178" width="60" height="63"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5nS-Xu-LZX">
+                                <rect key="frame" x="6" y="149" width="159" height="439"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsj-c0-VcI">
                                 <rect key="frame" x="175.5" y="60.5" width="24" height="3"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -745,12 +749,13 @@
                         <outlet property="rainView" destination="W3I-Rv-eiC" id="kGt-tX-rYV"/>
                         <outlet property="shirtCollectionView" destination="2U8-HN-zxv" id="GdF-vh-zKv"/>
                         <outlet property="sunnyView" destination="oSv-tn-cDy" id="qZJ-mX-bjE"/>
+                        <outlet property="teste" destination="5nS-Xu-LZX" id="dfS-Ga-CQ6"/>
                         <outlet property="weatherCollectionView" destination="T9l-6b-JAJ" id="Lg4-S6-NQM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZhT-2T-Wc7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="102" y="688"/>
+            <point key="canvasLocation" x="101.59999999999999" y="687.7061469265368"/>
         </scene>
     </scenes>
     <resources>

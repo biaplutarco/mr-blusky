@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DH8-Ej-1In">
-                        <rect key="frame" x="27" y="5" width="162" height="140"/>
+                        <rect key="frame" x="25" y="5" width="162" height="140"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="suit" translatesAutoresizingMaskIntoConstraints="NO" id="Dxo-eo-gzJ">
                         <rect key="frame" x="0.0" y="10" width="180" height="160"/>
@@ -30,7 +30,7 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="DH8-Ej-1In" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" multiplier="1.2" id="GIz-To-7Pa"/>
+                <constraint firstItem="DH8-Ej-1In" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" multiplier="1.18" id="GIz-To-7Pa"/>
                 <constraint firstItem="Dxo-eo-gzJ" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="GhF-CA-Y99"/>
                 <constraint firstItem="DH8-Ej-1In" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="NOr-g3-GAk"/>
                 <constraint firstItem="Dxo-eo-gzJ" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" multiplier="0.9" id="OT6-6F-H4x"/>

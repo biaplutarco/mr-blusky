@@ -53,7 +53,6 @@
 		B2D8CE8E21816DF600A31130 /* CityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B5273217A458400FB3759 /* CityCollectionViewCell.swift */; };
 		B2D8CE8F21816DFD00A31130 /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2FF4F14217B935600C2D4A8 /* DayCollectionViewCell.swift */; };
 		B2D8CE9021816E0400A31130 /* SearchBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B52622179605A00FB3759 /* SearchBarViewControllerDelegate.swift */; };
-		B2D8CE9621816E3100A31130 /* ChooseStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D8CE32217F887D00A31130 /* ChooseStyleViewController.swift */; };
 		B2D8CE9721816E5A00A31130 /* PantsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D8CE45217F8ED500A31130 /* PantsCollectionViewCell.swift */; };
 		B2D8CEA22183826C00A31130 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D8CEA12183826C00A31130 /* CurrentWeather.swift */; };
 		B2D8CEA4218382AE00A31130 /* CurrentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D8CEA3218382AE00A31130 /* CurrentData.swift */; };
@@ -729,7 +728,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2D8CE9621816E3100A31130 /* ChooseStyleViewController.swift in Sources */,
 				B2D8CE732180145700A31130 /* Day.swift in Sources */,
 				B2D8CE9721816E5A00A31130 /* PantsCollectionViewCell.swift in Sources */,
 				B2D8CE622180105700A31130 /* TodayViewController.swift in Sources */,

@@ -25,6 +25,7 @@ class ChooseStyleViewController: UIViewController {
         //return UIStatusBarStyle.default   // Make dark again
     }
     
+    @IBOutlet weak var teste: UIImageView!
     @IBOutlet weak var rainView: GradientView!
     @IBOutlet weak var nightView: GradientView!
     @IBOutlet weak var sunnyView: GradientView!
@@ -33,12 +34,7 @@ class ChooseStyleViewController: UIViewController {
     @IBOutlet weak var pantsCollectionView: UICollectionView!
     
     @IBAction func saveNewStyle(_ sender: Any) {
-//        let newStyleImage = saveNewStyle(
-//                     head: (headCollectionView.visibleCells.first as!HeadCollectionViewCell).imageView.image!,
-//                     shirt: (shirtCollectionView.visibleCells.first as! ShirtCollectionViewCell).imageView.image!,
-//                     pants: (pantsCollectionView.visibleCells.first as! PantsCollectionViewCell).imageView.image!)
-//        DBManager.sharedInstance.saveSunStyle(path: "teste", image: newStyleImage)
-//        teste.image = DBManager.sharedInstance.getSunStyle()
+        saveNewStyle()
     }
     
     @IBAction func cancel(_ sender: Any) {
@@ -63,19 +59,109 @@ class ChooseStyleViewController: UIViewController {
         pantsCollectionView.register(UINib(nibName: "PantsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "pantsCell")
     }
     
-    func saveNewStyle(head: UIImage, shirt: UIImage, pants: UIImage) -> UIImage{
-        let size = CGSize(width: 138, height: 200)
+    func getNewStyle(shirt: UIImage, pants: UIImage) -> UIImage{
+        let coatView = (shirtCollectionView.visibleCells.first as! ShirtCollectionViewCell).coatView
+        let shirtView = (shirtCollectionView.visibleCells.first as! ShirtCollectionViewCell).shirtView
+        let pantsView = (pantsCollectionView.visibleCells.first as! PantsCollectionViewCell).pantsView
+        let headImage = #imageLiteral(resourceName: "head")
+        let headSize = CGSize(width: 60, height: 63)
+        
+        
+        var shirtSize = CGSize()
+        var pantsSize = CGSize()
+        var pantsY = CGFloat()
+        var pantsX = CGFloat()
+        var headX = CGFloat()
+        
+        if shirt == shirtView?.image {
+            shirtSize = CGSize(width: 162, height: 140)
+            pantsY = 8
+            headX = 35
+            
+            if pants == pantsView?.image {
+                pantsSize = CGSize(width: 108, height: 230)
+                pantsX = 0
+            } else {
+                pantsSize = CGSize(width: 81, height: 230)
+                pantsX = 30
+            }
+            
+        } else if shirt == coatView?.image {
+            shirtSize = CGSize(width: 144, height: 180)
+            pantsY = 50
+            headX = 30
+            
+            if pants == pantsView?.image {
+                pantsSize = CGSize(width: 108, height: 230)
+                pantsX = 10
+            } else {
+                pantsSize = CGSize(width: 81, height: 230)
+                pantsX = 30
+            }
+            
+        } else {
+            shirtSize = CGSize(width: 180, height: 160)
+            pantsY = 35
+            headX = 60
+            
+            if pants == pantsView?.image {
+                pantsSize = CGSize(width: 108, height: 230)
+                pantsX = 35
+            } else {
+                pantsSize = CGSize(width: 81, height: 230)
+                pantsX = 60
+            }
+        }
+        
+        
+        
+        let size = CGSize(width: 180, height: 473)
+        
         UIGraphicsBeginImageContext(size)
         
-        let areaSize = CGRect(x: 0, y: 0, width: size.width, height: size.height/2)
-        shirt.draw(in: areaSize)
-        let areaSize2 = CGRect(x: 0, y: 100, width: size.width, height: size.height/2)
-        pants.draw(in: areaSize2)
-        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        let areaPants = CGRect(x: pantsX, y: (shirtSize.height + headSize.height) - pantsY, width: pantsSize.width, height: pantsSize.height)
+        pants.draw(in: areaPants)
         
+        let areaShirt = CGRect(x: 0, y: headSize.height, width: shirtSize.width, height: shirtSize.height)
+        shirt.draw(in: areaShirt)
+        
+        let areaHead = CGRect(x: headX, y: 10, width: headSize.width, height: headSize.height)
+        headImage.draw(in: areaHead)
+        
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    func saveNewStyle() {
+        var shirtImage = UIImage()
+        var pantsImage = UIImage()
+        
+        let visibleShirtCell = shirtCollectionView.visibleCells.first
+        let firstShirtCell = shirtCollectionView.cellForItem(at: IndexPath(row: 0, section: 0))
+        let secondShirtCell = shirtCollectionView.cellForItem(at: IndexPath(row: 1, section: 0))
+        
+        let visiblePantsCell = pantsCollectionView.visibleCells.first
+        let firstPantsCell = pantsCollectionView.cellForItem(at: IndexPath(row: 0, section: 0))
+        
+        if visibleShirtCell == firstShirtCell {
+            shirtImage = ((shirtCollectionView.visibleCells.first as? ShirtCollectionViewCell)?.shirtView.image)!
+        } else if visibleShirtCell == secondShirtCell {
+            shirtImage = ((shirtCollectionView.visibleCells.first as? ShirtCollectionViewCell)?.suitView.image)!
+        } else {
+            shirtImage = ((shirtCollectionView.visibleCells.first as? ShirtCollectionViewCell)?.coatView.image)!
+        }
+        
+        if visiblePantsCell == firstPantsCell {
+            pantsImage = ((pantsCollectionView.visibleCells.first as? PantsCollectionViewCell)?.pantsView.image)!
+        } else {
+            pantsImage = ((pantsCollectionView.visibleCells.first as? PantsCollectionViewCell)?.shortsView.image)!
+        }
+        
+        let newStyleImage = getNewStyle(shirt: shirtImage, pants: pantsImage)
+        //        DBManager.sharedInstance.saveSunStyle(path: "teste", image: newStyleImage)
+        teste.image = newStyleImage
     }
     
     func isWeatherViewHidden(type: TypeWeather, bool: Bool) {
@@ -169,6 +255,8 @@ extension ChooseStyleViewController: UICollectionViewDelegate, UICollectionViewD
                 isWeatherViewHidden(type: .night, bool: false)
             }
         }
+        
+        
     }
 }
 
