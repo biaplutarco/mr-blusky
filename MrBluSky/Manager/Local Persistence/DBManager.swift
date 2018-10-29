@@ -33,7 +33,28 @@ class DBManager {
     func saveSunStyle(path: String, image: UIImage) {
         let style = SunStyle(context: persistentContainer.viewContext)
         style.imagePath = path
+        deleteSunStyle(path: path)
+        FileManager.sharedInstance.removeFromFileManagerWith(path: path)
+        FileManager.sharedInstance.saveImage(path, image: image)
         
+        appDelegate.saveContext()
+    }
+    
+    func saveNightStyle(path: String, image: UIImage) {
+        let style = NigthStyle(context: persistentContainer.viewContext)
+        style.imagePath = path
+        deleteNightStyle(path: path)
+        FileManager.sharedInstance.removeFromFileManagerWith(path: path)
+        FileManager.sharedInstance.saveImage(path, image: image)
+        
+        appDelegate.saveContext()
+    }
+    
+    func saveRaintyle(path: String, image: UIImage) {
+        let style = RainStyle(context: persistentContainer.viewContext)
+        style.imagePath = path
+        deleteRainStyle(path: path)
+        FileManager.sharedInstance.removeFromFileManagerWith(path: path)
         FileManager.sharedInstance.saveImage(path, image: image)
         
         appDelegate.saveContext()
@@ -44,6 +65,26 @@ class DBManager {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "SunStyle")
         do {
             let styles = try context.fetch(request) as! [SunStyle]
+            return FileManager.sharedInstance.getImageFrom(path: (styles.first?.imagePath)!)!
+        } catch {
+            fatalError()
+        }
+    }
+    
+    func getNightStyle() -> UIImage {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "NigthStyle")
+        do {
+            let styles = try context.fetch(request) as! [NigthStyle]
+            return FileManager.sharedInstance.getImageFrom(path: (styles.first?.imagePath)!)!
+        } catch {
+            fatalError()
+        }
+    }
+    
+    func getRainStyle() -> UIImage {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RainStyle")
+        do {
+            let styles = try context.fetch(request) as! [RainStyle]
             return FileManager.sharedInstance.getImageFrom(path: (styles.first?.imagePath)!)!
         } catch {
             fatalError()
@@ -109,6 +150,16 @@ class DBManager {
     
     func deleteSunStyle(path: String) {
         deleteAllFrom(entity: "SunStyle")
+        FileManager.sharedInstance.removeFromFileManagerWith(path: path)
+    }
+    
+    func deleteNightStyle(path: String) {
+        deleteAllFrom(entity: "NigthStyle")
+        FileManager.sharedInstance.removeFromFileManagerWith(path: path)
+    }
+    
+    func deleteRainStyle(path: String) {
+        deleteAllFrom(entity: "RainStyle")
         FileManager.sharedInstance.removeFromFileManagerWith(path: path)
     }
     

@@ -29,6 +29,10 @@ class ViewController: UIViewController {
     var typeWeather: TypeWeather?
     let dynamicColor = DynamicColor()
     var bigWord: Bool = false
+    var newRainStyle: Bool?
+    var newNighStyle: Bool?
+    var newSunStyle: Bool?
+    var indexPathSeleted = IndexPath(row: 0, section: 0)
     
     // Make the Status Bar Light/Dark Content for this View
     override var preferredStatusBarStyle : UIStatusBarStyle {
@@ -58,6 +62,7 @@ class ViewController: UIViewController {
     @IBAction func addNewCity(_ sender: Any) {
         if cityCollectionCanEditing == false {
             performSegue(withIdentifier: "addCity", sender: nil)
+            cityCollectionCanEditing = false
             
         } else {
             cancelDeleteCity()
@@ -66,13 +71,22 @@ class ViewController: UIViewController {
     
     @IBAction func deleteCity(_ sender: Any) {
         if editButton.titleLabel!.text == "Editar" {
-            //self.cityCollectionView.visibleCells.first!.isSelected = true
             editingCity()
-        } else {
+
+            cityCollectionView.cellForItem(at: indexPathSeleted)?.isSelected = true
             
-                deleteCityName.forEach { (city) in
-                    self.deleteCity(editButton: self.editButton, addButton: self.addAndCancelButton, deleteCityName: city)
+            if cityCollectionData.isEmpty == true {
+                let alert = UIAlertController(title: "Nenhuma cidade adicionada!", message: "Por favor, adicione alguma cidade antes de querer deletar.", preferredStyle: .alert)
                 
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                    self.cancelDeleteCity()
+                }))
+                self.present(alert, animated: true)
+            }
+            
+        } else {
+            deleteCityName.forEach { (city) in
+                self.deleteCity(editButton: self.editButton, addButton: self.addAndCancelButton, deleteCityName: city)
             }
             settingsDeleteCity()
         }
@@ -100,6 +114,18 @@ class ViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tappedImage(sender:)))
         styleImage.isUserInteractionEnabled = true
         styleImage.addGestureRecognizer(tapGestureRecognizer)
+        
+        
+        if cityCollectionData.isEmpty == false {
+            let cityID = dbManager.getCityID(name: cityCollectionData.first!)
+            getCurrentData(cityID: cityID)
+            getForecastData(cityID: cityID, row: (self.cityCollectionData.count-1), indexPath: nil)
+            cityCollectionView.cellForItem(at: IndexPath(row: self.cityCollectionData.count-1, section: 0))?.isSelected = true
+            indexPathSeleted = IndexPath(row: self.cityCollectionData.count-1, section: 0)
+            deleteCityName.append(cityCollectionData[self.cityCollectionData.count-1])
+        }
+        
+        
     
     }
     
@@ -109,6 +135,7 @@ class ViewController: UIViewController {
     
     // MARK: - Action Methods
     func deleteCity(editButton: UIButton, addButton: UIButton, deleteCityName: String) {
+        
         editButton.setTitle("Editar", for: .normal)
         DBManager.sharedInstance.deleteCity(name: deleteCityName)
         addButton.setImage(#imageLiteral(resourceName: "add"), for: .normal)
@@ -134,7 +161,6 @@ class ViewController: UIViewController {
     }
     
     func editingCity() {
-        cityCollectionView.reloadData()
         editButton.setTitle("Deletar", for: .normal)
         cityCollectionCanEditing = true
         addAndCancelButton.setImage(UIImage(), for: .normal)
@@ -171,12 +197,6 @@ class ViewController: UIViewController {
         self.nightView.isHidden = bool
         self.rainView.isHidden = bool
     }
-//
-//    func isBallonHidden(bool: Bool){
-//        self.ballon.isHidden = bool
-//        self.textOne.isHidden = bool
-//        self.textTwo.isHidden = bool
-//    }
     
     func isForWeatherTypeHidden (_ weatherType: String, rainView: Bool, sunnyView: Bool, nightView: Bool) {
         self.weatherCurrentlyIcon.image = UIImage.init(named: weatherType)
@@ -192,6 +212,7 @@ class ViewController: UIViewController {
             destination.typeWeather = self.typeWeather
         } else {
             let destination = segue.destination as! ChooseStyleViewController
+            destination.delegate = self
             destination.typeWeather = self.typeWeather
         }
         
@@ -213,10 +234,23 @@ class ViewController: UIViewController {
                 switch self.typeWeather! {
                 case .rain:
                     self.isForWeatherTypeHidden("cloudy", rainView: false, sunnyView: true, nightView: true)
+                    
+                    
+                    if self.newRainStyle == true {
+                        self.styleImage.image = self.dbManager.getRainStyle()
+                    }
                 case .night:
                     self.isForWeatherTypeHidden("night", rainView: true, sunnyView: true, nightView: false)
+                    if self.newNighStyle == true {
+                        self.styleImage.image = self.dbManager.getNightStyle()
+                    }
+                    
                 case .sun:
                     self.isForWeatherTypeHidden("sun", rainView: true, sunnyView: false, nightView: true)
+                    if self.newSunStyle == true {
+                        self.styleImage.image = self.dbManager.getSunStyle()
+                    }
+                    
                 default:
                     self.isDayHidden (bool: true)
                 }

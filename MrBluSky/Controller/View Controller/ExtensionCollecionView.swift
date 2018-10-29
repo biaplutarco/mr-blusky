@@ -44,6 +44,10 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         if collectionView.tag == 0 {
             if cityCollectionCanEditing == false {
                 let activityIndicator = UIActivityIndicatorView(style: .white)
+                view.addSubview(activityIndicator)
+                activityIndicator.frame = view.bounds
+                
+                activityIndicator.startAnimating()
                 
                 isDayHidden(bool: true)
                 cityCollectionView.allowsMultipleSelection = false
@@ -53,6 +57,7 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
                     collectionView.cellForItem(at: index)?.isSelected = false
                 }
                 collectionView.cellForItem(at: indexPath)?.isSelected = true
+                activityIndicator.removeFromSuperview()
                 isDayHidden(bool: false)
                 
                 let cityID = dbManager.getCityID(name: cityCollectionData[indexPath.row])
@@ -67,8 +72,9 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
                 rows.append(indexPath.row)
                 
                 rows.forEach { (row) in
-                    deleteCityName.append(cityCollectionData[row]) 
+                    deleteCityName.append(cityCollectionData[row])
                 }
+                
                 
             }
             self.cityCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)

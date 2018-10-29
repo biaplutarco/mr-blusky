@@ -22,6 +22,7 @@
 		B29B52632179605A00FB3759 /* SearchBarViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B52622179605A00FB3759 /* SearchBarViewControllerDelegate.swift */; };
 		B29B5275217A458400FB3759 /* CityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29B5273217A458400FB3759 /* CityCollectionViewCell.swift */; };
 		B29B5276217A458400FB3759 /* CityCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B29B5274217A458400FB3759 /* CityCollectionViewCell.xib */; };
+		B2C58ABE2186582E00170FF4 /* ChooseStyleViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C58ABD2186582E00170FF4 /* ChooseStyleViewControllerDelegate.swift */; };
 		B2D8CE22217F3FB900A31130 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D8CE21217F3FB900A31130 /* UserNotifications.framework */; };
 		B2D8CE24217F3FB900A31130 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D8CE23217F3FB900A31130 /* UserNotificationsUI.framework */; };
 		B2D8CE27217F3FB900A31130 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D8CE26217F3FB900A31130 /* NotificationViewController.swift */; };
@@ -137,6 +138,7 @@
 		B29B52622179605A00FB3759 /* SearchBarViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B29B5273217A458400FB3759 /* CityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCollectionViewCell.swift; sourceTree = "<group>"; };
 		B29B5274217A458400FB3759 /* CityCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CityCollectionViewCell.xib; sourceTree = "<group>"; };
+		B2C58ABD2186582E00170FF4 /* ChooseStyleViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStyleViewControllerDelegate.swift; sourceTree = "<group>"; };
 		B2D8CE20217F3FB900A31130 /* NotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2D8CE21217F3FB900A31130 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		B2D8CE23217F3FB900A31130 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -312,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				B29B52622179605A00FB3759 /* SearchBarViewControllerDelegate.swift */,
+				B2C58ABD2186582E00170FF4 /* ChooseStyleViewControllerDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -688,6 +691,7 @@
 				B29B5275217A458400FB3759 /* CityCollectionViewCell.swift in Sources */,
 				B2D8CE7E21808CEE00A31130 /* UIColor.swift in Sources */,
 				B2FF4F2C217C34A400C2D4A8 /* GradientView.swift in Sources */,
+				B2C58ABE2186582E00170FF4 /* ChooseStyleViewControllerDelegate.swift in Sources */,
 				B2D8CE47217F8ED500A31130 /* PantsCollectionViewCell.swift in Sources */,
 				B2FF4F1A217BFB9500C2D4A8 /* DayCollectionView.swift in Sources */,
 				B2FF4F0F217AD9D700C2D4A8 /* DynamicColor.swift in Sources */,
